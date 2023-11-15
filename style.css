@@ -1,0 +1,204 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	transform-style: preserve-3d;
+}
+.container {
+	position: relative;
+	width: 100vw;
+	height: 100dvh;
+	overflow: hidden;
+	background-color: white;
+}
+.container[data-invert="1"] {
+	filter: invert(100%);
+}
+canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100dvh;
+	object-fit: cover;
+	transform: scale(-1, 1);
+	filter: blur(10px);
+}
+video {
+	display: none;
+}
+
+h1 {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-family: cursive;
+	z-index: 999999;
+	font-size: 20vmin;
+	filter: blur(20px);
+	letter-spacing: .5em;
+	padding-left: .5em;
+	pointer-events: none;
+	transition: opacity 2s;
+	animation: title 2s infinite alternate;
+}
+@keyframes title {
+	from {
+		filter: blur(60px);
+	}
+	to {
+		filter: blur(18px);
+	}
+}
+h1[data-active="0"] {
+	opacity: 0;
+}
+
+#invert {
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	width: 100px;
+	height: 100px;
+	border: unset;
+	background-color: unset;
+	fill: transparent;
+	stroke-width: 2px;
+	stroke: black;
+	stroke-dasharray: 4;
+	cursor: pointer;
+	transition: .2s;
+}
+#invert:hover {
+	stroke-dasharray: 20;
+}
+#invert:active {
+	opacity: .25;
+}
+#invert[data-active="1"] #start {
+	display: none;
+}
+#invert[data-active="0"] #pause {
+	display: none;
+}
+
+#blur {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	width: 100px;
+	height: 100px;
+	border: unset;
+	background-color: unset;
+	fill: transparent;
+	stroke-width: 2px;
+	stroke: black;
+	stroke-dasharray: 4;
+	cursor: pointer;
+	transition: .2s;
+}
+#blur:hover {
+	stroke-dasharray: 20;
+}
+#blur:active {
+	opacity: .25;
+}
+#blur[data-active="1"] #start {
+	display: none;
+}
+#blur[data-active="0"] #pause {
+	display: none;
+}
+
+#toggle {
+	position: absolute;
+	left: 20px;
+	bottom: 20px;
+	width: 100px;
+	height: 100px;
+	border: unset;
+	background-color: unset;
+	fill: transparent;
+	stroke-width: 2px;
+	stroke: black;
+	stroke-dasharray: 4;
+	cursor: pointer;
+	transition: stroke-dasharray .2s, opacity .2s;
+}
+#toggle:hover {
+	stroke-dasharray: 20;
+}
+#toggle:active {
+	opacity: .25;
+}
+#toggle[data-active="1"] #start {
+	display: none;
+}
+#toggle[data-active="0"] #pause {
+	display: none;
+}
+
+#toggle[data-init="1"] {
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 9999;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: end;
+	justify-content: center;
+	object-fit: contain;
+	stroke-dasharray: 0;
+	background-color: white;
+	padding: 40px;
+}
+#toggle[data-init="1"] svg {
+	transition: .2s;
+}
+#toggle[data-init="1"]:hover {
+	stroke-dasharray: 30;
+}
+#toggle[data-init="1"] svg:hover {
+	filter: blur(5px);
+}
+#toggle[data-init="1"]:active {
+	opacity: 1;
+}
+#toggle[data-init="1"]:active svg {
+	opacity: .5;
+}
+#toggle[data-init="1"] svg {
+	height: 20vmin;
+}
+
+.controls-face {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 200px;
+	height: 200px;
+}
+.controls-face svg {
+	height: 100%;
+	width: 100%;
+}
+.controls-face ellipse {
+	fill: white;
+	transition: .2s;
+	cursor: pointer;
+	stroke-width: 1px;
+	stroke: black;
+	stroke-dasharray: 4;
+}
+.controls-face ellipse[data-active="0"] {
+	filter: blur(2px);
+}
+.controls-face ellipse:hover {
+	stroke-dasharray: 20;
+}
+.controls-face ellipse:active {
+	opacity: .25;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ghost</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<video id="webcam" autoplay playsinline></video>
+
+	<main class="container">
+		<h1>ghost</h1>
+
+		<canvas class="output_canvas" id="output_canvas" style="position: absolute; left: 0px; top: 0px;"></canvas>
+
+		<button id="invert" onclick="invert();">
+			<svg viewBox="0 0 200 200">
+				<path d="m110.042,180.905c-29.251,0-55.697-14.952-70.743-40.001-11.339-18.876-14.648-41.037-9.319-62.4,5.33-21.363,18.661-39.374,37.537-50.712,10.922-6.561,22.813-10.419,35.366-11.479-24.733,28.437-30.044,66.187-13.157,94.301,13.256,22.067,38.38,35.243,67.208,35.245h.006c7.373,0,14.841-.863,22.217-2.565-6.831,10.582-15.823,19.269-26.745,25.829-12.831,7.708-27.482,11.782-42.37,11.782Z"/>
+			</svg>
+		</button>
+
+		<button id="blur" onclick="toggleBlur();">
+			<svg viewBox="0 0 200 200">
+				<circle cx="100" cy="100" r="79.5"/>
+			</svg>
+		</button>
+
+		<button id="toggle" data-active="0" data-init="1">
+			<svg viewBox="0 0 200 200" id="start">
+				<polygon points="56.268 21.808 155.641 100 56.268 178.192 56.268 21.808"/>
+			</svg>
+			<svg viewBox="0 0 200 200" id="pause">
+				<rect x="58.303" y="21.278" width="24.007" height="157.444"/>
+				<rect x="117.69" y="21.278" width="24.007" height="157.444"/>
+			</svg>
+		</button>
+
+		<div class="controls-face">
+			<svg viewBox="0 0 200 200">
+				<ellipse data-active="0" data-feature="face" cx="100" cy="100" rx="80" ry="80"/>
+				<ellipse data-active="1" data-feature="lefteye" cx="69.8" cy="85" rx="20" ry="15"/>
+				<ellipse data-active="1" data-feature="righteye" cx="130.2" cy="85" rx="20" ry="15"/>
+				<ellipse data-active="0" data-feature="contours" cx="100" cy="115" rx="10" ry="10"/>
+				<ellipse data-active="0" data-feature="mouth" cx="100" cy="150" rx="20" ry="10"/>
+				<ellipse data-active="0" data-feature="lefteyebrow" cx="69.8" cy="55" rx="15" ry="3"/>
+				<ellipse data-active="0" data-feature="righteyebrow" cx="130.2" cy="55" rx="15" ry="3"/>
+				<ellipse data-active="1" data-feature="leftiris" cx="69.8" cy="85" rx="5" ry="8"/>
+				<ellipse data-active="1" data-feature="rightiris" cx="130.2" cy="85" rx="5" ry="8"/>
+			</svg>
+		</div>
+	</main>
+
+	<script src="mediapipe.js" type="module"></script>
+	<script>
+		function invert() {
+			const container = document.querySelector('.container');
+			if (parseInt(container.dataset.invert) == 1) {
+				container.dataset.invert = 0;
+			} else {
+				container.dataset.invert = 1;
+			}
+		}
+
+		let blurLevel = 0;
+		function toggleBlur() {
+			const canvas = document.querySelector('canvas');
+			canvas.style.filter = `blur(${blurLevel*10}px)`;
+			blurLevel -= 1;
+			if (blurLevel < 0) {
+				blurLevel = 3;
+			}
+		}
+	</script>
+</body>
+</html>
